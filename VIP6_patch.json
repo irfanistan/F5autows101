@@ -1,0 +1,31 @@
+[
+    {
+        "op": "add",
+        "path": "/Irfan/A6",
+        "value": {
+            "class": "Application",
+            "service": {
+                "class": "Service_HTTP",
+                "virtualAddresses": [
+                    "10.1.6.10"
+                ],
+                "pool": "web_pool3"
+            },
+            "web_pool3": {
+                "class": "Pool",
+                "monitors": [
+                    "http"
+                ],
+                "members": [
+                    {
+                        "servicePort": 80,
+                        "serverAddresses": [
+                            "10.1.6.10",
+                            "10.1.6.11"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+]

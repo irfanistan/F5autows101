@@ -1,0 +1,32 @@
+---
+- name: MY AS3 PLAYBOOK
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    uri_method: PATCH
+
+  vars_files: 
+    - ../creds/bigip_creds.yaml
+
+  tasks:
+
+  - name: SEND AS3 DECLARATION
+    uri:
+      url: https://35.176.153.176/mgmt/shared/appsvcs/declare
+      validate_certs: no
+      user: "{{bigip_user}}"
+      password: "{{bigip_pass}}"
+      method: "{{uri_method}}"
+      body: "{{ lookup('file','VIP6_patch.json') }}"
+      force_basic_auth: yes
+      status_code: 200
+      body_format: json
+    register: as3_response
+
+  - name: DEBUG OUT AS3  RESPONSE
+    debug:
+      msg: "{{as3_response}}"
+
+...
